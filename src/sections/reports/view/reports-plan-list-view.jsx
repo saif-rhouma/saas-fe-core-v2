@@ -28,6 +28,7 @@ import {
   TableEmptyRows,
   TableHeadCustom,
   TableSelectedAction,
+  TablePaginationCustom,
 } from 'src/components/table';
 
 import ReportsPlanTableRow from '../reports-plan-table-row';
@@ -136,6 +137,14 @@ const ReportsPlanListView = ({ plans }) => {
               </TableBody>
             </Table>
           </Box>
+          <TablePaginationCustom
+            className="print-hide"
+            page={table.page}
+            count={dataFiltered.length}
+            rowsPerPage={table.rowsPerPage}
+            onPageChange={table.onChangePage}
+            onRowsPerPageChange={table.onChangeRowsPerPage}
+          />
           <Box>
             <Stack
               direction="row"

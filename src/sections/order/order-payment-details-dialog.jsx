@@ -16,8 +16,10 @@ import { Button, MenuItem, DialogTitle, DialogActions } from '@mui/material';
 import axios, { endpoints } from 'src/utils/axios';
 import { fCurrency } from 'src/utils/format-number';
 import { fDate, today } from 'src/utils/format-time';
+import { calculateAfterTax } from 'src/utils/helper';
 
-import { Upload } from 'src/components/upload';
+import { Iconify } from 'src/components/iconify';
+import { UploadBox } from 'src/components/upload';
 import { Form, Field, schemaHelper } from 'src/components/hook-form';
 
 const PaymentCreationSchema = zod.object({
@@ -105,7 +107,7 @@ const OrderPaymentDetailsDialog = ({ order, payment, open, onClose, handler }) =
 
   return (
     <Dialog fullWidth maxWidth="lg" open={open} onClose={onClose}>
-      <DialogTitle>Payment Details</DialogTitle>
+      <DialogTitle>Add Payment</DialogTitle>
       <Form methods={methods} onSubmit={onSubmit}>
         <DialogContent>
           <Divider />
@@ -170,7 +172,13 @@ const OrderPaymentDetailsDialog = ({ order, payment, open, onClose, handler }) =
                 Order Amount:
               </Typography>
               <Typography component="span" variant="body2" sx={{ color: 'text.secondary' }}>
-                {fCurrency(order.totalOrderAmount) || '-'}
+                {/* {fCurrency(order.totalOrderAmount) || '-'} */}
+                {fCurrency(
+                  calculateAfterTax(
+                    order.totalOrderAmount - order.totalOrderAmount * (order.discount / 100),
+                    order?.snapshotTaxPercentage
+                  )
+                ) || '-'}
               </Typography>
             </Box>
             <Box display="flex">
@@ -193,7 +201,12 @@ const OrderPaymentDetailsDialog = ({ order, payment, open, onClose, handler }) =
                 Balance:
               </Typography>
               <Typography component="span" variant="subtitle1">
-                {fCurrency(order.totalOrderAmount - order.orderPaymentAmount)}
+                {fCurrency(
+                  calculateAfterTax(
+                    order.totalOrderAmount - order.totalOrderAmount * (order.discount / 100),
+                    order?.snapshotTaxPercentage
+                  ) - order.orderPaymentAmount
+                ) || '-'}
               </Typography>
             </Box>
           </Stack>
@@ -229,9 +242,55 @@ const OrderPaymentDetailsDialog = ({ order, payment, open, onClose, handler }) =
                   <MenuItem value="Card">Card</MenuItem>
                 </Field.Select>
               </Box>
-              <Stack spacing={1.5}>
-                <Typography variant="subtitle2">Attachments</Typography>
-                <Upload value={file} onDrop={handleDropSingleFile} onDelete={handleDelete} />
+              <Stack spacing={1.5} flexDirection="row" sx={{ height: '56px' }}>
+                {/* <Typography variant="subtitle2">Attachments</Typography> */}
+                {/* <Upload
+                  value={file}
+                  onDrop={handleDropSingleFile}
+                  onDelete={handleDelete}
+                  sx={{ m: 0, p: 0 }}
+                /> */}
+
+                <UploadBox
+                  onDrop={handleDropSingleFile}
+                  // onDelete={handleDelete}
+                  sx={{ height: 'auto' }}
+                />
+                {file && (
+                  <Stack
+                    flexDirection="row"
+                    spacing={1}
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                      typography: 'body2',
+                      color: 'error.main',
+                      cursor: 'pointer',
+                      border: `solid 1px rgba(0,0,0,0)`,
+                      p: 1,
+                      '&:hover': {
+                        border: `solid 1px`,
+                        borderColor: 'error.main',
+                        borderRadius: 1.5,
+                      },
+                    }}
+                    onClick={handleDelete}
+                  >
+                    <Iconify icon="solar:trash-bin-trash-bold" />
+                    <Box>
+                      <Box spacing={3}>
+                        <Typography
+                          component="span"
+                          variant="subtitle2"
+                          sx={{ flexGrow: 1, mr: 1 }}
+                        >
+                          Filename:
+                        </Typography>
+                        <span>{file.name}</span>
+                      </Box>
+                    </Box>
+                  </Stack>
+                )}
               </Stack>
             </Box>
           </Stack>
@@ -244,8 +303,9 @@ const OrderPaymentDetailsDialog = ({ order, payment, open, onClose, handler }) =
             color="inherit"
             variant="outlined"
             onClick={() => {
-              onClose();
+              reset();
               setFile(null);
+              onClose();
             }}
           >
             Cancel

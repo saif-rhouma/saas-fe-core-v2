@@ -1,4 +1,6 @@
 /* eslint-disable no-unsafe-optional-chaining */
+import { useCallback } from 'react';
+
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
@@ -9,6 +11,9 @@ import { Stack, Avatar } from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import CardHeader from '@mui/material/CardHeader';
+
+import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
 
 import { fCurrency } from 'src/utils/format-number';
 
@@ -21,6 +26,14 @@ import { TableHeadCustom } from 'src/components/table';
 // ----------------------------------------------------------------------
 
 export function AppNewInvoice({ title, subheader, tableData, headLabel, ...other }) {
+  const router = useRouter();
+
+  const handleTopProductRedirect = useCallback(
+    (id) => {
+      router.push(paths.dashboard.topProducts);
+    },
+    [router]
+  );
   return (
     <Card {...other}>
       <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
@@ -44,6 +57,7 @@ export function AppNewInvoice({ title, subheader, tableData, headLabel, ...other
           size="small"
           color="inherit"
           endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
+          onClick={() => handleTopProductRedirect()}
         >
           View all
         </Button>

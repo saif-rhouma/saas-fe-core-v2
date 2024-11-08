@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Dialog from '@mui/material/Dialog';
@@ -8,6 +9,7 @@ import { Button, DialogTitle, DialogActions } from '@mui/material';
 
 import { fDate } from 'src/utils/format-time';
 import { fCurrency } from 'src/utils/format-number';
+import { calculateAfterTax } from 'src/utils/helper';
 
 const PaymentDetailsDialog = ({ payment, open, onClose }) => (
   <Dialog fullWidth maxWidth="md" open={open} onClose={onClose}>
@@ -36,7 +38,7 @@ const PaymentDetailsDialog = ({ payment, open, onClose }) => (
             Order ID:
           </Typography>
           <Typography component="span" variant="body2" sx={{ color: 'text.secondary' }}>
-            {payment?.ref}
+            {payment?.order?.ref}
           </Typography>
         </Box>
         <Box display="flex">
@@ -87,7 +89,14 @@ const PaymentDetailsDialog = ({ payment, open, onClose }) => (
             Order Amount:
           </Typography>
           <Typography component="span" variant="body2" sx={{ color: 'text.secondary' }}>
-            {fCurrency(payment?.order?.totalOrderAmount) || '-'}
+            {/* {fCurrency(payment?.order?.totalOrderAmount) || '-'} */}
+            {fCurrency(
+              calculateAfterTax(
+                payment?.order.totalOrderAmount -
+                  payment?.order.totalOrderAmount * (payment?.order.discount / 100),
+                payment?.order?.snapshotTaxPercentage
+              )
+            ) || '-'}
           </Typography>
         </Box>
         <Box display="flex">
@@ -110,7 +119,14 @@ const PaymentDetailsDialog = ({ payment, open, onClose }) => (
             Balance:
           </Typography>
           <Typography component="span" variant="subtitle1">
-            {fCurrency(payment?.order?.totalOrderAmount - payment?.order?.orderPaymentAmount)}
+            {/* {fCurrency(payment?.order?.totalOrderAmount - payment?.order?.orderPaymentAmount)} */}
+            {fCurrency(
+              calculateAfterTax(
+                payment?.order.totalOrderAmount -
+                  payment?.order.totalOrderAmount * (payment?.order.discount / 100),
+                payment?.order?.snapshotTaxPercentage
+              ) - payment?.order.orderPaymentAmount
+            ) || '-'}
           </Typography>
         </Box>
       </Stack>

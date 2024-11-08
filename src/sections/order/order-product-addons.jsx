@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -11,6 +13,9 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import TimelineItem, { timelineItemClasses } from '@mui/lab/TimelineItem';
 
+import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
+
 import { fDateTime } from 'src/utils/format-time';
 import { fCurrency } from 'src/utils/format-number';
 import { PermissionsType } from 'src/utils/constant';
@@ -20,6 +25,13 @@ import { Iconify } from 'src/components/iconify';
 import PermissionAccessController from 'src/components/permission-access-controller/permission-access-controller';
 
 const OrderProductAddons = ({ order, payments, dialog, handleApproveOrder, handlePrint }) => {
+  const router = useRouter();
+  const handleViewQuotation = useCallback(
+    (id) => {
+      router.replace(paths.dashboard.quotation.details(id));
+    },
+    [router]
+  );
   const renderTimeline = (
     <Box sx={{ pr: 4, pl: 4, pb: 4, pt: 2 }}>
       {/* <Box sx={{ mb: 2 }}>
@@ -67,27 +79,47 @@ const OrderProductAddons = ({ order, payments, dialog, handleApproveOrder, handl
         })}
       </Timeline>
       <Stack justifyContent="flex-end" spacing={1.5} sx={{ marginTop: 2 }}>
-        <PermissionAccessController permission={PermissionsType.ADD_PAYMENT}>
-          <Button variant="contained" onClick={() => dialog.onTrue()}>
-            Add Payment
-          </Button>
-        </PermissionAccessController>
-        {order?.status === 'Draft' && (
-          <Button
-            variant="outlined"
-            onClick={() => {
-              handleApproveOrder(order.id);
-            }}
-          >
-            Approve
-          </Button>
+        {order?.status !== 'Draft' && order?.status !== 'Canceled' && (
+          <PermissionAccessController permission={PermissionsType.ADD_PAYMENT}>
+            <Button variant="contained" onClick={() => dialog.onTrue()}>
+              Add Payment
+            </Button>
+          </PermissionAccessController>
         )}
+
+        <PermissionAccessController permission={PermissionsType.APPROVE_ORDER}>
+          {order?.status === 'Draft' && (
+            <Button
+              variant="outlined"
+              onClick={() => {
+                handleApproveOrder(order.id);
+              }}
+            >
+              Approve
+            </Button>
+          )}
+        </PermissionAccessController>
         <PermissionAccessController permission={PermissionsType.PRINT_ORDER}>
           <Button variant="outlined" color="info" onClick={() => handlePrint()}>
             <Iconify icon="solar:printer-minimalistic-bold" />
             <span style={{ margin: 4 }}>Print Order</span>
           </Button>
         </PermissionAccessController>
+        {order?.quotation?.id && (
+          <Button
+            variant="contained"
+            startIcon={<Iconify icon="heroicons-outline:external-link" />}
+            onClick={() => {
+              // eslint-disable-next-line no-unsafe-optional-chaining
+              const { id } = order?.quotation;
+              if (id) {
+                handleViewQuotation(id);
+              }
+            }}
+          >
+            Related to Quotation: #{order?.quotation?.ref}
+          </Button>
+        )}
       </Stack>
     </Box>
   );

@@ -1,7 +1,8 @@
 import { z as zod } from 'zod';
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { isValidPhoneNumber } from 'react-phone-number-input';
 
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
@@ -10,7 +11,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import { Button, DialogTitle, DialogActions } from '@mui/material';
 
-import { Form, Field } from 'src/components/hook-form';
+import { Form, Field, schemaHelper } from 'src/components/hook-form';
 
 const CustomerCreationSchema = zod.object({
   name: zod.string().min(1, { message: 'Name is required!' }),
@@ -19,22 +20,30 @@ const CustomerCreationSchema = zod.object({
     .string()
     .min(1, { message: 'Email is required!' })
     .email({ message: 'Email must be a valid email address!' }),
-  // phoneNumber: schemaHelper.phoneNumber({ isValidPhoneNumber }),
-  taxNumber: zod.number().min(1, { message: 'Tax number is required!' }),
+  phoneNumber: schemaHelper.phoneNumber({ isValidPhoneNumber }),
+  taxNumber: zod.number().optional(),
   address: zod.string(),
   isActive: zod.boolean(),
 });
 
 function OrderCustomerCreateDialog({ customer, open, onClose, handler }) {
-  const defaultValues = {
-    name: customer?.name || '',
-    city: customer?.address.city || '',
-    email: customer?.email || '',
-    phoneNumber: customer?.phoneNumber || '',
-    taxNumber: parseInt(customer?.taxNumber, 10) || '',
-    address: customer?.address?.street || '',
-    isActive: customer?.isActive || true,
-  };
+  const defaultValues = useMemo(() => {
+    const defaultVals = {
+      name: customer?.name || '',
+      city: customer?.address.city || '',
+      email: customer?.email || '',
+      phoneNumber: customer?.phoneNumber || '',
+      address: customer?.address?.street || '',
+      isActive: customer?.isActive || true,
+    };
+
+    if (customer?.taxNumber == null) {
+      return defaultVals;
+    }
+    defaultVals.taxNumber = parseInt(customer?.taxNumber, 10);
+    return defaultVals;
+  }, [customer]);
+
   const [errorMsg, setErrorMsg] = useState('');
 
   const methods = useForm({
@@ -60,12 +69,13 @@ function OrderCustomerCreateDialog({ customer, open, onClose, handler }) {
       const payload = { ...data };
       delete payload.city;
       payload.address = { country: data.city, city: data.city, street: data.address };
-      payload.taxNumber = payload.taxNumber.toString();
+      payload.taxNumber = payload.taxNumber?.toString();
       if (customer) {
         await handler({ id: customer.id, payload });
       } else {
         await handler(payload);
       }
+      onClose();
       reset();
     } catch (error) {
       console.log(error);
@@ -108,7 +118,14 @@ function OrderCustomerCreateDialog({ customer, open, onClose, handler }) {
           <LoadingButton type="submit" variant="contained">
             {customer ? 'Save Changes' : 'Save'}
           </LoadingButton>
-          <Button color="inherit" variant="outlined" onClick={onClose}>
+          <Button
+            color="inherit"
+            variant="outlined"
+            onClick={() => {
+              reset(defaultValues);
+              onClose();
+            }}
+          >
             Cancel
           </Button>
         </DialogActions>

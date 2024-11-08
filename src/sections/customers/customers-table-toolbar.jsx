@@ -4,11 +4,14 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 
+import { useTranslate } from 'src/locales';
+
 import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
 export function CustomersTableToolbar({ filters, onResetPage, options }) {
+  const { t } = useTranslate('customer');
   const handleFilterName = useCallback(
     (event) => {
       onResetPage();
@@ -28,7 +31,7 @@ export function CustomersTableToolbar({ filters, onResetPage, options }) {
         sx={{ width: 420 }}
         value={filters.state.name}
         onChange={handleFilterName}
-        placeholder="Search customer or order number..."
+        placeholder={`${t('listView.table.tableToolbar.searchPlaceholder')}`}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

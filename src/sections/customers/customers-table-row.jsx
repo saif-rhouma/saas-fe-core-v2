@@ -19,6 +19,7 @@ import { PermissionsType } from 'src/utils/constant';
 import { calculateAfterTax } from 'src/utils/helper';
 
 import { CONFIG } from 'src/config-global';
+import { useTranslate } from 'src/locales';
 
 import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
@@ -27,7 +28,7 @@ import PermissionAccessController from 'src/components/permission-access-control
 
 const CustomersTableRow = ({ row, index, selected, onDeleteRow, onEditRow }) => {
   const [hasOrders, setHasOrders] = useState(row?.lastOrders.length > 0);
-
+  const { t } = useTranslate('customer');
   const confirm = useBoolean();
 
   const collapse = useBoolean();
@@ -89,7 +90,6 @@ const CustomersTableRow = ({ row, index, selected, onDeleteRow, onEditRow }) => 
       </TableCell>
     </TableRow>
   );
-
   const renderSecondary = (
     <TableRow>
       <TableCell sx={{ p: 0, border: 'none' }} colSpan={8}>
@@ -122,7 +122,7 @@ const CustomersTableRow = ({ row, index, selected, onDeleteRow, onEditRow }) => 
                         handleViewCustomer(row.id);
                       }}
                     >
-                      See More
+                      {`${t('listView.table.tableActions.seeMore')}`}
                     </Button>
                   </Stack>
                 );
@@ -215,7 +215,7 @@ const CustomersTableRow = ({ row, index, selected, onDeleteRow, onEditRow }) => 
             }}
           >
             <Iconify icon="solar:eye-bold" />
-            View
+            {`${t('listView.table.tableActions.view')}`}
           </MenuItem>
 
           <PermissionAccessController permission={PermissionsType.EDIT_CUSTOMER}>
@@ -226,7 +226,7 @@ const CustomersTableRow = ({ row, index, selected, onDeleteRow, onEditRow }) => 
               }}
             >
               <Iconify icon="solar:pen-bold" />
-              Edit
+              {`${t('listView.table.tableActions.edit')}`}
             </MenuItem>
           </PermissionAccessController>
           <PermissionAccessController permission={PermissionsType.DELETE_CUSTOMER}>
@@ -238,7 +238,7 @@ const CustomersTableRow = ({ row, index, selected, onDeleteRow, onEditRow }) => 
               sx={{ color: 'error.main' }}
             >
               <Iconify icon="solar:trash-bin-trash-bold" />
-              Delete
+              {`${t('listView.table.tableActions.delete')}`}
             </MenuItem>
           </PermissionAccessController>
         </MenuList>
@@ -247,11 +247,11 @@ const CustomersTableRow = ({ row, index, selected, onDeleteRow, onEditRow }) => 
       <ConfirmDialog
         open={confirm.value}
         onClose={confirm.onFalse}
-        title="Delete"
-        content="Are you sure want to delete?"
+        title={`${t('listView.messages.dialogDelete.title')}`}
+        content={`${t('listView.messages.dialogDelete.text')}`}
         action={
           <Button variant="contained" color="error" onClick={onDeleteRow}>
-            Delete
+            {`${t('listView.table.tableActions.delete')}`}
           </Button>
         }
       />

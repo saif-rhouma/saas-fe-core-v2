@@ -8,5 +8,32 @@
     "title": "مدونة",
     "caption": "اختصارات لوحة المفاتيح المخصصة."
   },
-  "subheader": "العنوان الفرعي"
+  "subheader": "العنوان الفرعي",
+  "dashboard": {
+    "root": "لوحة التحكم",
+    "quotations": "اقتباسات",
+    "orders": "طلبات",
+    "products": {
+      "root": "منتجات",
+      "productsList": "قائمة المنتجات",
+      "categoriesList": "قائمة الفئات",
+      "productStock": "مخزون المنتج"
+    },
+    "ordersStatus": "حالة الطلبات",
+    "plans": "الخطط",
+    "plansStatus": "حالة الخطط",
+    "customers": "عملاء",
+    "payments": "المدفوعات",
+    "reminders": "تذكيرات",
+    "tickets": "التذاكر",
+    "users": "",
+    "reports": {
+      "root": "التقارير",
+      "dailyReports": "dailyReports",
+      "orderReports": "ordersReports",
+      "planReports": "ordersReports",
+      "stockReports": "ordersReports"
+    },
+    "settings": { "root": "إعدادات" }
+  }
 }

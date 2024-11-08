@@ -21,7 +21,6 @@ import { AppCurrentDownload } from '../app-current-download';
 
 export function OverviewAppView({ analytics }) {
   const { user } = useAuthContext();
-
   return (
     <DashboardContent maxWidth="xl">
       <Grid container spacing={3}>
@@ -87,62 +86,17 @@ export function OverviewAppView({ analytics }) {
             // subheader="Downloaded by operating system"
             chart={{
               series: [
-                { label: 'Ready', value: analytics.orders.analytics.Ready },
-                { label: 'In Process', value: analytics.orders.analytics.InProcess },
-                { label: 'Waiting for Approval', value: analytics.orders.analytics.Draft },
-                { label: 'Delivered', value: analytics.orders.analytics.Delivered },
+                { label: 'Ready', value: analytics.orders.analytics.Ready || 0 },
+                { label: 'In Process', value: analytics.orders.analytics.InProcess || 0 },
+                { label: 'Waiting for Approval', value: analytics.orders.analytics.Draft || 0 },
+                { label: 'Delivered', value: analytics.orders.analytics.Delivered || 0 },
               ],
             }}
           />
         </Grid>
 
         <Grid xs={12} md={6} lg={8}>
-          <AppAreaInstalled
-            title="Area installed"
-            subheader="(+43%) than last year"
-            chart={{
-              categories: [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec',
-              ],
-              series: [
-                {
-                  name: '2022',
-                  data: [
-                    { name: 'Asia', data: [12, 10, 18, 22, 20, 12, 8, 21, 20, 14, 15, 16] },
-                    { name: 'Europe', data: [12, 10, 18, 22, 20, 12, 8, 21, 20, 14, 15, 16] },
-                    { name: 'Americas', data: [12, 10, 18, 22, 20, 12, 8, 21, 20, 14, 15, 16] },
-                  ],
-                },
-                {
-                  name: '2023',
-                  data: [
-                    { name: 'Asia', data: [6, 18, 14, 9, 20, 6, 22, 19, 8, 22, 8, 17] },
-                    { name: 'Europe', data: [6, 18, 14, 9, 20, 6, 22, 19, 8, 22, 8, 17] },
-                    { name: 'Americas', data: [6, 18, 14, 9, 20, 6, 22, 19, 8, 22, 8, 17] },
-                  ],
-                },
-                {
-                  name: '2024',
-                  data: [
-                    { name: 'Asia', data: [6, 20, 15, 18, 7, 24, 6, 10, 12, 17, 18, 10] },
-                    { name: 'Europe', data: [6, 20, 15, 18, 7, 24, 6, 10, 12, 17, 18, 10] },
-                    { name: 'Americas', data: [6, 20, 15, 18, 7, 24, 6, 10, 12, 17, 18, 10] },
-                  ],
-                },
-              ],
-            }}
-          />
+          <AppAreaInstalled title="Order Status" chart={analytics?.orders?.chartData} />
         </Grid>
 
         <Grid xs={12} lg={8}>

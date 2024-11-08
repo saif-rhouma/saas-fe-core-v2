@@ -1,0 +1,44 @@
+{
+  "listView": {
+    "breadCrumbsPageRootTitle": "Dashboard",
+    "breadCrumbsParentPageTitle": "Orders",
+    "breadCrumbsPageTitle": "List",
+    "addNewOrder": "New Order",
+    "statisticsWidgets": {
+      "allOrders": "All Orders",
+      "processingOrder": "Processing Order",
+      "readyToDeliver": "Ready to Deliver",
+      "delivered": "Delivered"
+    },
+    "table": {
+      "tableHeader": {
+        "details": "Customer",
+        "date": "Date",
+        "items": "Items",
+        "price": "Price",
+        "status": "Status"
+      },
+      "tableActions": {
+        "view": "View",
+        "cancel": "Cancel",
+        "seeMore": "See More"
+      },
+      "tableToolbar": {
+        "searchPlaceholder": "Search customer by name, email...",
+        "selectMenu": {
+          "allOrders": "All Orders",
+          "draft": "Draft",
+          "processing": "Processing",
+          "readyToDeliver": "Ready to Deliver",
+          "delivered": "Delivered"
+        }
+      }
+    }
+  },
+  "detailView": {
+    "pageTitle": "Details",
+    "breadCrumbsPageRootTitle": "Dashboard",
+    "breadCrumbsParentPageTitle": "Orders",
+    "breadCrumbsPageTitle": "Order Details"
+  }
+}

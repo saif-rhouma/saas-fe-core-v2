@@ -1,11 +1,13 @@
 import { useState, useCallback } from 'react';
 
+import { Box } from '@mui/material';
 import Card from '@mui/material/Card';
 import { useTheme } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
 
 import { fNumber, fShortenNumber } from 'src/utils/format-number';
 
+import { EmptyContent } from 'src/components/empty-content';
 import { Chart, useChart, ChartSelect, ChartLegends } from 'src/components/chart';
 
 // ----------------------------------------------------------------------
@@ -13,7 +15,7 @@ import { Chart, useChart, ChartSelect, ChartLegends } from 'src/components/chart
 export function AppAreaInstalled({ title, subheader, chart, ...other }) {
   const theme = useTheme();
 
-  const [selectedSeries, setSelectedSeries] = useState('2023');
+  const [selectedSeries, setSelectedSeries] = useState('2024');
 
   const chartColors = chart.colors ?? [
     theme.palette.primary.dark,
@@ -36,9 +38,26 @@ export function AppAreaInstalled({ title, subheader, chart, ...other }) {
   }, []);
 
   const currentSeries = chart.series.find((i) => i.name === selectedSeries);
+  const calculateTotal = (array) => array?.reduce((sum, number) => sum + number, 0);
+  if (chart.series?.length === 0)
+    return (
+      <Card {...other} sx={{ height: 1 }}>
+        <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
+        <Box
+          sx={{
+            display: 'flex',
+            height: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <EmptyContent filled />
+        </Box>
+      </Card>
+    );
 
   return (
-    <Card {...other}>
+    <Card {...other} sx={{ height: 1 }}>
       <CardHeader
         title={title}
         subheader={subheader}
@@ -54,8 +73,12 @@ export function AppAreaInstalled({ title, subheader, chart, ...other }) {
 
       <ChartLegends
         colors={chartOptions?.colors}
-        labels={chart.series[0].data.map((item) => item.name)}
-        values={[fShortenNumber(1234), fShortenNumber(6789), fShortenNumber(1012)]}
+        labels={chart.series[0]?.data?.map((item) => item?.name)}
+        values={[
+          fShortenNumber(calculateTotal(currentSeries?.data[0]?.data)),
+          fShortenNumber(calculateTotal(currentSeries?.data[1]?.data)),
+          fShortenNumber(calculateTotal(currentSeries?.data[2]?.data)),
+        ]}
         sx={{
           px: 3,
           gap: 3,

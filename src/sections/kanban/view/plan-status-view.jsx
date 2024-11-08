@@ -25,7 +25,10 @@ import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
+import { usePermissionAccessController } from 'src/hooks/use-permission-access-controller';
+
 import axios, { endpoints } from 'src/utils/axios';
+import { PermissionsType } from 'src/utils/constant';
 
 import { hideScrollY } from 'src/theme/styles';
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -313,9 +316,17 @@ export function PlanStatusView() {
       sensors={sensors}
       collisionDetection={collisionDetectionStrategy}
       measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
-      onDragStart={onDragStart}
-      onDragOver={onDragOver}
-      onDragEnd={onDragEnd}
+      onDragStart={
+        usePermissionAccessController(PermissionsType.PLAN_STATUS_SCREEN_DRAG_AND_DROP) &&
+        onDragStart
+      }
+      onDragOver={
+        usePermissionAccessController(PermissionsType.PLAN_STATUS_SCREEN_DRAG_AND_DROP) &&
+        onDragOver
+      }
+      onDragEnd={
+        usePermissionAccessController(PermissionsType.PLAN_STATUS_SCREEN_DRAG_AND_DROP) && onDragEnd
+      }
     >
       <Stack sx={{ flex: '1 1 auto', overflowX: 'auto' }}>
         <Stack

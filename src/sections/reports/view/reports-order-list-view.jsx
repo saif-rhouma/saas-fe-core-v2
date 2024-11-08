@@ -31,6 +31,7 @@ import {
   TableEmptyRows,
   TableHeadCustom,
   TableSelectedAction,
+  TablePaginationCustom,
 } from 'src/components/table';
 
 import ReportsOrderTableRow from '../reports-order-table-row';
@@ -157,6 +158,14 @@ const ReportsOrderListView = ({ orders }) => {
               </TableBody>
             </Table>
           </Box>
+          <TablePaginationCustom
+            className="print-hide"
+            page={table.page}
+            count={dataFiltered.length}
+            rowsPerPage={table.rowsPerPage}
+            onPageChange={table.onChangePage}
+            onRowsPerPageChange={table.onChangeRowsPerPage}
+          />
           <Box>
             <Stack
               direction="row"

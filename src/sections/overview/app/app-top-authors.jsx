@@ -21,6 +21,7 @@ export function AppTopAuthors({ title, subheader, list, ...other }) {
         sx={{
           p: 3,
           gap: 3,
+          mt: 0.5,
           display: 'flex',
           flexDirection: 'column',
         }}

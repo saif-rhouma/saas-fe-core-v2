@@ -1,13 +1,7 @@
-import Stack from '@mui/material/Stack';
-
 import { BackToTop } from 'src/components/animate/back-to-top';
 import { ScrollProgress, useScrollProgress } from 'src/components/animate/scroll-progress';
 
 import { HomeHero } from '../home-hero';
-import { HomeZoneUI } from '../home-zone-ui';
-import { HomeMinimal } from '../home-minimal';
-import { HomePricing } from '../home-pricing';
-import { HomeTestimonials } from '../home-testimonials';
 
 // ----------------------------------------------------------------------
 

@@ -19,6 +19,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { fDate } from 'src/utils/format-time';
 import { fCurrency } from 'src/utils/format-number';
 import { PermissionsType } from 'src/utils/constant';
+import { calculateAfterTax } from 'src/utils/helper';
 
 import { CONFIG } from 'src/config-global';
 
@@ -32,7 +33,6 @@ import PermissionAccessController from 'src/components/permission-access-control
 
 export function OrderTableRow({ row, index, selected, onViewRow, onDeleteRow }) {
   const confirm = useBoolean();
-  console.log(row);
 
   const collapse = useBoolean();
 
@@ -93,9 +93,17 @@ export function OrderTableRow({ row, index, selected, onViewRow, onDeleteRow }) 
           ))}
         </AvatarGroup>
       </TableCell>
-
-      <TableCell> {fCurrency(row.totalOrderAmount)} </TableCell>
-
+      <TableCell>
+        {fCurrency(
+          calculateAfterTax(
+            row.totalOrderAmount - row.totalOrderAmount * (row.discount / 100),
+            row.snapshotTaxPercentage
+          )
+        ) || '-'}
+      </TableCell>
+      <TableCell>
+        {row.createdBy?.firstName} {row.createdBy?.lastName}
+      </TableCell>
       <TableCell>
         <Label
           variant="soft"

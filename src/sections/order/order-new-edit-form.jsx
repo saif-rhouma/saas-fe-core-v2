@@ -223,10 +223,9 @@ export function OrderNewEditForm({ products, customers, taxPercentage }) {
         <Box sx={{ p: 3 }}>
           <TextField
             color="success"
-            // focused
             fullWidth
             maxWidth="xs"
-            placeholder="Search customer or order number..."
+            placeholder="Search product..."
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -234,11 +233,6 @@ export function OrderNewEditForm({ products, customers, taxPercentage }) {
                 </InputAdornment>
               ),
             }}
-            // sx={{
-            //   '& .MuiOutlinedInput-root': {
-            //     border: '1px solid #909090',
-            //   },
-            // }}
             onChange={handleFilterProducts}
           />
         </Box>

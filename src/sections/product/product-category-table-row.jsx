@@ -4,11 +4,14 @@ import { Box, Stack, Avatar, Button, MenuItem, MenuList, IconButton } from '@mui
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { PermissionsType } from 'src/utils/constant';
+
 import { CONFIG } from 'src/config-global';
 
 import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
+import PermissionAccessController from 'src/components/permission-access-controller/permission-access-controller';
 
 const ProductCategoryTableRow = ({ row, index, selected, onDeleteRow, onEditRow, onViewRow }) => {
   const confirm = useBoolean();
@@ -44,35 +47,42 @@ const ProductCategoryTableRow = ({ row, index, selected, onDeleteRow, onEditRow,
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
-          <MenuItem
-            onClick={() => {
-              onViewRow();
-              popover.onClose();
-            }}
-          >
-            <Iconify icon="solar:eye-bold" />
-            View
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              onEditRow(row.id);
-              popover.onClose();
-            }}
-          >
-            <Iconify icon="solar:pen-bold" />
-            Edit
-          </MenuItem>
+          <PermissionAccessController permission={PermissionsType.VIEW_CATEGORY}>
+            <MenuItem
+              onClick={() => {
+                onViewRow();
+                popover.onClose();
+              }}
+            >
+              <Iconify icon="solar:eye-bold" />
+              View
+            </MenuItem>
+          </PermissionAccessController>
+
+          <PermissionAccessController permission={PermissionsType.EDIT_CATEGORY}>
+            <MenuItem
+              onClick={() => {
+                onEditRow(row.id);
+                popover.onClose();
+              }}
+            >
+              <Iconify icon="solar:pen-bold" />
+              Edit
+            </MenuItem>
+          </PermissionAccessController>
+          <PermissionAccessController permission={PermissionsType.DELETE_CATEGORY}>
+            <MenuItem
+              onClick={() => {
+                confirm.onTrue();
+                popover.onClose();
+              }}
+              sx={{ color: 'error.main' }}
+            >
+              <Iconify icon="solar:trash-bin-trash-bold" />
+              Delete
+            </MenuItem>
+          </PermissionAccessController>
         </MenuList>
-        <MenuItem
-          onClick={() => {
-            confirm.onTrue();
-            popover.onClose();
-          }}
-          sx={{ color: 'error.main' }}
-        >
-          <Iconify icon="solar:trash-bin-trash-bold" />
-          Delete
-        </MenuItem>
       </CustomPopover>
       <ConfirmDialog
         open={confirm.value}

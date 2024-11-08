@@ -112,23 +112,31 @@ const TicketsPreviousMessage = ({ ticket, messages }) => {
           })}
         </Scrollbar>
       </Timeline>
-      <Form methods={methods} onSubmit={onSubmit}>
-        <Stack justifyContent="flex-end" spacing={1} sx={{ marginTop: 1 }}>
-          <Stack sx={{ typography: 'subtitle1', width: '100%', marginBottom: 1 }}>
-            <div>Send Reply:</div>
+      {ticket.status !== 'Closed' && (
+        <Form methods={methods} onSubmit={onSubmit}>
+          <Stack justifyContent="flex-end" spacing={1} sx={{ marginTop: 1 }}>
+            <Stack sx={{ typography: 'subtitle1', width: '100%', marginBottom: 1 }}>
+              <div>Send Reply:</div>
+            </Stack>
+            <Field.Text
+              label="Enter Description"
+              name="message"
+              multiline
+              rows={3}
+              sx={{ mb: 2 }}
+            />
+            <Box>
+              <Button
+                type="submit"
+                variant="contained"
+                endIcon={<Iconify icon="iconamoon:send-fill" />}
+              >
+                Send
+              </Button>
+            </Box>
           </Stack>
-          <Field.Text label="Enter Description" name="message" multiline rows={3} sx={{ mb: 2 }} />
-          <Box>
-            <Button
-              type="submit"
-              variant="contained"
-              endIcon={<Iconify icon="iconamoon:send-fill" />}
-            >
-              Send
-            </Button>
-          </Box>
-        </Stack>
-      </Form>
+        </Form>
+      )}
     </Box>
   );
 

@@ -18,12 +18,15 @@ import axios, { endpoints } from 'src/utils/axios';
 import { CONFIG } from 'src/config-global';
 
 import { toast } from 'src/components/snackbar';
+import { useTable } from 'src/components/table';
 import { Iconify } from 'src/components/iconify';
 import ProductItemButton from 'src/components/product/product-Item-button';
+import { ComponentPaginationCustom } from 'src/components/table/component-pagination-custom';
 
 import PlanProductTable from './plan-product-table';
 
 export function PlanNewEditForm({ products, plan }) {
+  const table = useTable({ defaultRowsPerPage: 6 });
   const router = useRouter();
   const [planId, setPlanId] = useState();
   const [selectedDate, setSelectedDate] = useState(dayjs(new Date()));
@@ -161,16 +164,29 @@ export function PlanNewEditForm({ products, plan }) {
             lg: 'repeat(2, 1fr)',
           }}
         >
-          {filterProducts.map((product) => (
-            <ProductItemButton
-              payload={product}
-              handleClick={handleAddProducts}
-              key={product?.id}
-              productName={product?.name}
-              image={CONFIG.site.serverFileHost + product?.image}
-            />
-          ))}
+          {filterProducts
+            .slice(
+              table.page * table.rowsPerPage,
+              table.page * table.rowsPerPage + table.rowsPerPage
+            )
+            .map((product) => (
+              <ProductItemButton
+                payload={product}
+                handleClick={handleAddProducts}
+                key={product?.id}
+                productName={product?.name}
+                image={CONFIG.site.serverFileHost + product?.image}
+              />
+            ))}
         </Box>
+        <ComponentPaginationCustom
+          page={table.page}
+          count={filterProducts.length}
+          rowsPerPage={6}
+          defaultRowsPerPage={6}
+          onPageChange={table.onChangePage}
+          onRowsPerPageChange={table.onChangeRowsPerPage}
+        />
       </Stack>
     </Card>
   );

@@ -33,7 +33,7 @@ export const NewTicketSchema = zod.object({
   mentions: zod.any(),
 });
 
-const TicketsCreateDialog = ({ currentTicket, open, onClose }) => {
+const TicketsCreateDialog = ({ currentTicket, quotation, open, onClose }) => {
   //! Upload Logic START
   const store = useRef();
   const [members, setMembers] = useState([]);
@@ -66,6 +66,9 @@ const TicketsCreateDialog = ({ currentTicket, open, onClose }) => {
       if (filename) {
         const { current: payload } = store;
         payload.file = filename;
+        if (quotation) {
+          payload.quotationId = quotation.id;
+        }
         await handleCreateTicket(payload);
       }
       return data;
@@ -83,6 +86,10 @@ const TicketsCreateDialog = ({ currentTicket, open, onClose }) => {
     onSuccess: async () => {
       toast.success('New Ticket Has Been Created!');
       await queryClient.invalidateQueries({ queryKey: ['tickets'] });
+      if (quotation) {
+        const { id } = quotation;
+        await queryClient.invalidateQueries({ queryKey: ['quotation', id] });
+      }
       reset();
     },
     onSettled: async () => {
@@ -128,6 +135,9 @@ const TicketsCreateDialog = ({ currentTicket, open, onClose }) => {
         formData.append('category', 'Ticket');
         await handleUploadTicketFile(formData);
       } else {
+        if (quotation) {
+          payload.quotationId = quotation.id;
+        }
         await handleCreateTicket(payload);
       }
     } catch (error) {

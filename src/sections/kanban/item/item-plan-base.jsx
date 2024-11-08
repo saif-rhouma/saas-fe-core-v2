@@ -161,7 +161,7 @@ const ItemPlanBase = forwardRef(({ task, stateProps, sx, ...other }, ref) => {
           {renderPriority}
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="subtitle2">{task?.product?.name}</Typography>
-            <Typography variant="subtitle2">PLAN-{task?.id}</Typography>
+            <Typography variant="subtitle2">{task?.ref}</Typography>
           </Stack>
           <Stack direction="row" justifyContent="space-between" sx={{ typography: 'body2' }}>
             <Box sx={{ color: 'text.secondary' }}>Plan Date:</Box>

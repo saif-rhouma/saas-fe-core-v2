@@ -8,6 +8,8 @@ import { iconButtonClasses } from '@mui/material/IconButton';
 import useNavData from 'src/hooks/use-nav-data';
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { hasPermission, PermissionsType } from 'src/utils/constant';
+
 import { allLangs } from 'src/locales';
 import { _contacts, _notifications } from 'src/_mock';
 import { varAlpha, stylesMode } from 'src/theme/styles';
@@ -79,7 +81,10 @@ export function DashboardLayout({ sx, children, data }) {
               data={{
                 nav: navData,
                 langs: allLangs,
-                account: _account,
+                account: _account(
+                  user.roles[0] !== 'STAFF' ||
+                    hasPermission(permissions, PermissionsType.ACCOUNT_SETTINGS)
+                ),
                 contacts: _contacts,
                 workspaces: _workspaces,
                 notifications: _notifications,

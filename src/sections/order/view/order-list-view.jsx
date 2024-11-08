@@ -57,6 +57,7 @@ const TABLE_HEAD = [
     align: 'center',
   },
   { id: 'totalAmount', label: 'Price', width: 140 },
+  { id: 'createdBy', label: 'Created By', width: 200 },
   { id: 'status', label: 'Status', width: 110 },
   { id: '', width: 88 },
 ];

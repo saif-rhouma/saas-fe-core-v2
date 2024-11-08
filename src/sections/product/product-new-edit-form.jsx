@@ -53,7 +53,7 @@ export function ProductNewEditForm({ currentProduct, productsImages, categories 
     () => ({
       name: currentProduct?.name || '',
       description: currentProduct?.description || '',
-      // price: currentProduct?.price || 0,
+      price: currentProduct?.price,
       images: currentProduct?.images || [],
       categoryId: currentProduct?.category?.id || null,
       isActive: currentProduct?.isActive === undefined ? true : currentProduct?.isActive,

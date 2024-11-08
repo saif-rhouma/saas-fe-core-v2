@@ -16,10 +16,16 @@ import { i18nOptions, fallbackLng } from './config-locales';
  */
 const lng = localStorageGetItem('i18nextLng', fallbackLng);
 
+const loadTranslation = (language, namespace) => {
+  const translations = import.meta.glob('./langs/**/**/*.json');
+  const path = `./langs/${language}/${namespace}.json`;
+  return translations[path]?.().then((module) => module.default) || Promise.resolve({});
+};
+
 i18next
   .use(LanguageDetector)
   .use(initReactI18next)
-  .use(resourcesToBackend((lang, ns) => import(`./langs/${lang}/${ns}.json`)))
+  .use(resourcesToBackend((lang, ns) => loadTranslation(lang, ns)))
   .init({ ...i18nOptions(lng), detection: { caches: ['localStorage'] } });
 
 // ----------------------------------------------------------------------

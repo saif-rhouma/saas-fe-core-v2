@@ -2,6 +2,7 @@ import { z as zod } from 'zod';
 import { useForm } from 'react-hook-form';
 import { useMemo, useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { isValidPhoneNumber } from 'react-phone-number-input';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import Card from '@mui/material/Card';
@@ -20,7 +21,7 @@ import axios, { endpoints } from 'src/utils/axios';
 
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
-import { Form, Field } from 'src/components/hook-form';
+import { Form, Field, schemaHelper } from 'src/components/hook-form';
 
 // Schema definition for form validation
 export const NewStaffSchema = zod.object({
@@ -31,7 +32,7 @@ export const NewStaffSchema = zod.object({
     .min(1, { message: 'Password is required!' })
     .min(8, { message: 'Password must be at least 8 characters!' }),
   email: zod.string().min(1, { message: 'Email is required!' }),
-  // phoneNumber: schemaHelper.phoneNumber({ isValidPhoneNumber }),
+  phoneNumber: schemaHelper.phoneNumber({ isValidPhoneNumber }),
   permissions: zod.string().array().nonempty({ message: 'At least one permission is required!' }),
   isActive: zod.boolean(),
   permissionsGroup: zod.number(),

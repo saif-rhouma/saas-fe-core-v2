@@ -23,7 +23,7 @@ import { useAuthContext } from 'src/auth/hooks';
 // Schema definition for form validation
 export const UserAccountSchema = zod.object({
   firstName: zod.string().min(1, { message: 'Staff First Name is required!' }),
-  lastName: zod.string().min(1, { message: 'Staff Last Name is required!' }),
+  lastName: zod.string(),
   password: zod
     .string()
     .min(1, { message: 'Password is required!' })

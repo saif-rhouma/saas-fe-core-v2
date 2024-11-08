@@ -33,6 +33,10 @@ export default defineConfig({
         find: /^src(.+)/,
         replacement: path.join(process.cwd(), 'src/$1'),
       },
+      {
+        find: '@', // Add '@' alias here
+        replacement: path.resolve(__dirname, 'src'), // Alias '@' to 'src' directory
+      },
     ],
   },
   server: { port: PORT, host: true },

@@ -56,6 +56,8 @@ export function OrderTableToolbar({ filters, onResetPage }) {
         onChange={handleFilterStatus}
       >
         <MenuItem value="all">All Orders</MenuItem>
+        <MenuItem value="Draft">Draft</MenuItem>
+        <MenuItem value="Canceled">Canceled</MenuItem>
         <MenuItem value="InProcess">Processing</MenuItem>
         <MenuItem value="Ready">Ready To Deliver</MenuItem>
         <MenuItem value="Delivered">Delivered</MenuItem>

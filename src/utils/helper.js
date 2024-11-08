@@ -6,6 +6,17 @@
 
 // ----------------------------------------------------------------------
 
+export const getApplicationName = (userInput) => {
+  let { name } = userInput.userOwnedApps;
+  if (userInput?.roles?.includes('STAFF')) {
+    // eslint-disable-next-line prefer-destructuring
+    name = userInput.applications.name;
+  }
+  return name;
+};
+
+// ----------------------------------------------------------------------
+
 export function flattenArray(list, key = 'children') {
   let children = [];
 
@@ -209,3 +220,17 @@ export const exportToExcel = async (filename, headerSet, data, sheetName = 'Shee
 
   XLSX.writeFile(workbook, `${filename}.xlsx`);
 };
+
+//-------------------------------------------------------
+/**
+ *
+ * @param dateTime
+ * @returns true if it's in the past
+ */
+export function isDateTimeInPast(dateTime) {
+  const now = new Date(); // Get the current date and time
+  const inputDateTime = new Date(dateTime); // Convert the input to a Date object
+
+  return inputDateTime < now; // Check if the input date is in the past
+}
+//-------------------------------------------------------

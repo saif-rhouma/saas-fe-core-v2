@@ -17,6 +17,7 @@ import { Button, DialogTitle, DialogActions } from '@mui/material';
 import axios, { endpoints } from 'src/utils/axios';
 
 import { Upload } from 'src/components/upload';
+import { toast } from 'src/components/snackbar';
 import { Scrollbar } from 'src/components/scrollbar';
 import { Form, Field, schemaHelper } from 'src/components/hook-form';
 
@@ -27,7 +28,7 @@ export const NewReminderSchema = zod.object({
   time: schemaHelper.date({ message: { required_error: 'Time is required!' } }),
 });
 
-const ReminderCreateDialog = ({ currentReminder, open, onClose, handler }) => {
+const ReminderCreateDialog = ({ currentReminder, quotation, open, onClose, handler }) => {
   const store = useRef(currentReminder);
   //! Upload Logic START
   const [file, setFile] = useState();
@@ -98,6 +99,24 @@ const ReminderCreateDialog = ({ currentReminder, open, onClose, handler }) => {
     defaultValues,
   });
 
+  const { mutate: handleCreateReminder } = useMutation({
+    mutationFn: (payload) => axios.post(endpoints.reminders.create, payload),
+    onSuccess: async () => {
+      toast.success('New Reminder Has Been Created!');
+      await queryClient.invalidateQueries({ queryKey: ['reminders'] });
+      if (quotation) {
+        const { id } = quotation;
+        await queryClient.invalidateQueries({ queryKey: ['quotation', id] });
+      }
+    },
+    onSettled: async () => {
+      onClose();
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
   const {
     reset,
     watch,
@@ -112,6 +131,7 @@ const ReminderCreateDialog = ({ currentReminder, open, onClose, handler }) => {
       const time = dayjs(payload.time).format('HH:mm:ss');
       const datetime = dayjs(`${date}T${time}`).toISOString();
       payload.reminderDate = datetime;
+
       if (file) {
         store.current = { ...payload };
         const formData = new FormData();
@@ -121,7 +141,10 @@ const ReminderCreateDialog = ({ currentReminder, open, onClose, handler }) => {
       } else if (currentReminder) {
         await handler({ id: currentReminder.id, payload });
       } else {
-        await handler(payload);
+        if (quotation) {
+          payload.quotationId = quotation.id;
+        }
+        await handleCreateReminder(payload);
       }
       onClose();
       store.current = {};

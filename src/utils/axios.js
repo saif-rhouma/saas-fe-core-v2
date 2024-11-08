@@ -33,6 +33,7 @@ export const endpoints = {
   chat: '/api/chat',
   kanban: '/api/oders',
   dashboard: '/api/analytics',
+  topProducts: '/api/analytics/products',
   download: '/api/files/download/',
   calendar: '/api/calendar',
   auth: {
@@ -58,6 +59,14 @@ export const endpoints = {
     list: '/api/product/list',
     details: '/api/product/details',
     search: '/api/product/search',
+  },
+  quotation: {
+    list: '/api/quotations/',
+    create: '/api/quotations/create',
+    delete: '/api/quotations/',
+    edit: '/api/quotations/edit/',
+    details: '/api/quotations/',
+    createOrder: '/api/quotations/approve/order/',
   },
   order: {
     list: '/api/orders/',

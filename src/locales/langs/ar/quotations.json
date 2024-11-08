@@ -1,0 +1,177 @@
+{
+  "listView": {
+    "breadCrumbsPageRootTitle": "لوحة التحكم",
+    "breadCrumbsParentPageTitle": "عروض الأسعار",
+    "breadCrumbsPageTitle": "القائمة",
+    "addNewQuotation": "عرض سعر جديد",
+    "table": {
+      "tableHeader": {
+        "details": "التفاصيل",
+        "date": "التاريخ",
+        "items": "العناصر",
+        "price": "السعر",
+        "createdBy": "تم الإنشاء بواسطة",
+        "status": "الحالة"
+      },
+      "tableActions": {
+        "view": "عرض",
+        "edit": "تعديل",
+        "cancel": "إلغاء",
+        "seeMore": "رؤية المزيد"
+      },
+      "tableToolbar": {
+        "searchPlaceholder": "ابحث عن عميل بالاسم، البريد الإلكتروني...",
+        "selectMenu": {
+          "allQuotations": "جميع العروض",
+          "draft": "مسودة",
+          "processing": "قيد المعالجة",
+          "canceled": "ملغى",
+          "confirmed": "مؤكد"
+        }
+      }
+    },
+    "quotationPreview": {
+      "quotationCustomerLabel": "عرض سعر للعميل:",
+      "details": {
+        "tabTitle": "التفاصيل",
+        "quotationRefLabel": "رقم العرض:",
+        "quotationDateLabel": "تاريخ العرض:",
+        "StatusLabel": "الحالة:",
+        "table": {
+          "tableHeader": {
+            "productName": "اسم المنتج",
+            "rate": "السعر",
+            "quantity": "الكمية",
+            "total": "الإجمالي"
+          },
+          "tableToolbar": {
+            "searchPlaceholder": "ابحث عن عميل بالاسم، البريد الإلكتروني..."
+          }
+        },
+        "extra": {
+          "subTotal": "الإجمالي الفرعي",
+          "discount": "الخصم",
+          "tax": "الضريبة",
+          "grossTotal": "الإجمالي الكلي"
+        }
+      },
+      "tickets": {
+        "tabTitle": "التذاكر",
+        "newTicketButton": "تذكرة جديدة",
+        "table": {
+          "tableHeader": {
+            "topic": "الموضوع",
+            "date": "التاريخ",
+            "status": "الحالة",
+            "priority": "الأولوية"
+          },
+          "tableToolbar": {
+            "searchPlaceholder": "ابحث عن عميل بالاسم، البريد الإلكتروني...",
+            "selectMenu": {
+              "allTickets": "جميع التذاكر",
+              "openTickets": "التذاكر المفتوحة",
+              "closeTickets": "التذاكر المغلقة"
+            }
+          }
+        },
+        "extra": {
+          "subTotal": "الإجمالي الفرعي",
+          "discount": "الخصم",
+          "tax": "الضريبة",
+          "grossTotal": "الإجمالي الكلي"
+        }
+      },
+      "reminders": {
+        "tabTitle": "التذكيرات",
+        "newReminderButton": "تذكير جديد",
+        "table": {
+          "tableHeader": {
+            "title": "العنوان",
+            "date": "التاريخ",
+            "status": "الحالة"
+          },
+          "tableToolbar": {
+            "searchPlaceholder": "ابحث عن عميل بالاسم، البريد الإلكتروني..."
+          }
+        },
+        "extra": {
+          "subTotal": "الإجمالي الفرعي",
+          "discount": "الخصم",
+          "tax": "الضريبة",
+          "grossTotal": "الإجمالي الكلي"
+        }
+      }
+    },
+    "messages": {
+      "dialogCancel": {
+        "title": "إلغاء عرض السعر",
+        "text": "هل أنت متأكد أنك تريد إلغاء هذا العرض؟",
+        "confirmButton": "تأكيد الإلغاء",
+        "cancelButton": "إلغاء"
+      }
+    }
+  },
+  "createView": {
+    "pageTitle": "إنشاء عرض سعر جديد",
+    "breadCrumbsPageRootTitle": "لوحة التحكم",
+    "breadCrumbsParentPageTitle": "عروض الأسعار",
+    "breadCrumbsPageTitle": "إضافة عرض سعر",
+    "productsList": {
+      "searchPlaceholder": "ابحث عن منتج..."
+    },
+    "createForm": {
+      "buttons": {
+        "addCustomer": "إضافة عميل",
+        "saveAndContinue": "حفظ ومتابعة",
+        "clearAll": "مسح الكل"
+      },
+      "fields": {
+        "title": {
+          "title": "العنوان",
+          "placeholder": "أدخل العنوان"
+        },
+        "date": {
+          "title": "التاريخ",
+          "placeholder": "اختر التاريخ"
+        }
+      },
+      "table": {
+        "tableHeader": {
+          "productName": "اسم المنتج",
+          "rate": "السعر",
+          "quantity": "الكمية",
+          "total": "الإجمالي"
+        }
+      },
+      "extra": {
+        "subTotal": "الإجمالي الفرعي",
+        "discount": "الخصم",
+        "tax": "الضريبة",
+        "grossTotal": "الإجمالي الكلي"
+      }
+    },
+    "messages": {
+      "toastMessages": {
+        "createSuccess": "تم إنشاء عميل جديد!",
+        "editSuccess": "تم تعديل العميل!",
+        "deleteSuccess": "تم الحذف بنجاح!"
+      },
+      "dialogWrong": {
+        "title": "حدث خطأ ما. يجب إضافة منتج!",
+        "text": "يجب إضافة منتج واحد على الأقل إلى هذا العرض. يرجى اختيار منتج من القائمة على اليمين.",
+        "okayButton": "موافق"
+      }
+    }
+  },
+  "editView": {
+    "pageTitle": "تعديل عرض السعر:",
+    "breadCrumbsPageRootTitle": "لوحة التحكم",
+    "breadCrumbsParentPageTitle": "عروض الأسعار",
+    "breadCrumbsPageTitle": "تعديل عرض السعر"
+  },
+  "detailView": {
+    "breadCrumbsPageRootTitle": "لوحة التحكم",
+    "breadCrumbsParentPageTitle": "عروض الأسعار",
+    "breadCrumbsPageTitle": "تفاصيل عرض السعر"
+  }
+}

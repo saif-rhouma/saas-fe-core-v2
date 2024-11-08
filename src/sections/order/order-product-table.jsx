@@ -117,7 +117,12 @@ const OrderProductTable = ({
               </TableCell>
               {!isDetail && (
                 <TableCell>
-                  <Button sx={{ color: 'error.main' }} onClick={removeItem}>
+                  <Button
+                    sx={{ color: 'error.main' }}
+                    onClick={() => {
+                      removeItem(idx);
+                    }}
+                  >
                     <Iconify icon="solar:trash-bin-trash-bold" />
                   </Button>
                 </TableCell>

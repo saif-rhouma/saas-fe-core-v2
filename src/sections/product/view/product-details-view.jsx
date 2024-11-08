@@ -106,7 +106,10 @@ const ProductDetailsView = ({ product }) => (
                     borderBottom: (theme) => `dashed 2px ${theme.vars.palette.background.neutral}`,
                   }}
                 >
-                  <ProductOrderTable productOrders={product?.productToOrder} />
+                  <ProductOrderTable
+                    productOrders={product?.productToOrder}
+                    defaultRowsPerPage={15}
+                  />
                 </Box>
               </Scrollbar>
             )}

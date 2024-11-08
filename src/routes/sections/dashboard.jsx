@@ -12,6 +12,12 @@ import { AuthGuard } from 'src/auth/guard';
 
 // Overview
 const IndexPage = lazy(() => import('src/pages/dashboard'));
+const TopOrderedProductsPage = lazy(() => import('src/pages/dashboard/top-products'));
+// Quotation
+const QuotationListPage = lazy(() => import('src/pages/dashboard/quotation/list'));
+const QuotationCreateView = lazy(() => import('src/pages/dashboard/quotation/new'));
+const QuotationDetailsPage = lazy(() => import('src/pages/dashboard/quotation/details'));
+const QuotationEditPage = lazy(() => import('src/pages/dashboard/quotation/edit'));
 // Order
 const OrderListPage = lazy(() => import('src/pages/dashboard/order/list'));
 const OrderDetailsPage = lazy(() => import('src/pages/dashboard/order/details'));
@@ -86,7 +92,23 @@ export const dashboardRoutes = [
     path: 'dashboard',
     element: CONFIG.auth.skip ? <>{layoutContent}</> : <AuthGuard>{layoutContent}</AuthGuard>,
     children: [
-      { element: <IndexPage />, index: true },
+      {
+        path: '',
+        children: [
+          { element: <IndexPage />, index: true },
+          { path: 'top-products', element: <TopOrderedProductsPage /> },
+        ],
+      },
+      {
+        path: 'quotation',
+        children: [
+          { element: <QuotationListPage />, index: true },
+          { path: 'list', element: <QuotationListPage /> },
+          { path: 'new', element: <QuotationCreateView /> },
+          { path: ':id', element: <QuotationDetailsPage /> },
+          { path: ':id/edit', element: <QuotationEditPage /> },
+        ],
+      },
       {
         path: 'order',
         children: [

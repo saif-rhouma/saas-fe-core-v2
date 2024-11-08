@@ -1,0 +1,36 @@
+{
+  "listView": {
+    "breadCrumbsPageRootTitle": "Dashboard",
+    "breadCrumbsParentPageTitle": "Customers",
+    "breadCrumbsPageTitle": "List",
+    "addNewCustomer": "New Customer",
+    "table": {
+      "tableHeader": {
+        "customerName": "Customer Name",
+        "email": "Email",
+        "phoneNumber": "Phone Number",
+        "address": "Address"
+      },
+      "tableActions": {
+        "view": "View",
+        "edit": "Edit",
+        "delete": "Delete",
+        "seeMore": "See More"
+      },
+      "tableToolbar": {
+        "searchPlaceholder": "Search customer by name, email..."
+      }
+    },
+    "messages": {
+      "toastMessages": {
+        "createSuccess": "New Customer Has Been Created!",
+        "editSuccess": "Customer Has Been Modified!",
+        "deleteSuccess": "Delete success!"
+      },
+      "dialogDelete": {
+        "title": "Delete",
+        "text": "Are you sure want to delete?"
+      }
+    }
+  }
+}

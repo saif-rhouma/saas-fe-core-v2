@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { RoleType, PermissionsType } from 'src/utils/constant';
 
 const useNavData = (navData, permissions, role) => {
+  // const { t } = useTranslate('navbar');
   const hasPermission = (requiredPermission) => permissions.includes(requiredPermission);
   const hasPermissions = (requiredPermissions) =>
     requiredPermissions.some((perm) => permissions.includes(perm));
@@ -13,9 +14,11 @@ const useNavData = (navData, permissions, role) => {
         ...section,
         items: section.items.filter((item) => {
           // Remove items based on permissions
-          if (item.title === 'Orders' && !hasPermission(PermissionsType.LIST_ORDER)) return false;
+          if (item.title === `Quotations` && !hasPermission(PermissionsType.LIST_QUOTATION))
+            return false;
+          if (item.title === `Orders` && !hasPermission(PermissionsType.LIST_ORDER)) return false;
           if (
-            item.title === 'Products' &&
+            item.title === `Products` &&
             !hasPermissions([
               PermissionsType.LIST_PRODUCT,
               PermissionsType.LIST_ADDON,
@@ -23,21 +26,22 @@ const useNavData = (navData, permissions, role) => {
             ])
           )
             return false;
-          if (item.title === 'Orders Status' && !hasPermission(PermissionsType.ORDER_STATUS_SCREEN))
+
+          if (item.title === `Orders Status` && !hasPermission(PermissionsType.ORDER_STATUS_SCREEN))
             return false;
-          if (item.title === 'Plans' && !hasPermission(PermissionsType.LIST_PLAN)) return false;
-          if (item.title === 'Plans Status' && !hasPermission(PermissionsType.PLAN_STATUS_SCREEN))
+          if (item.title === `Plans` && !hasPermission(PermissionsType.LIST_PLAN)) return false;
+          if (item.title === `Plans Status` && !hasPermission(PermissionsType.PLAN_STATUS_SCREEN))
             return false;
-          if (item.title === 'Customers' && !hasPermission(PermissionsType.LIST_CUSTOMER))
+          if (item.title === `Customers` && !hasPermission(PermissionsType.LIST_CUSTOMER))
             return false;
-          if (item.title === 'Payments' && !hasPermission(PermissionsType.PAYMENT_LIST))
+          if (item.title === `Payments` && !hasPermission(PermissionsType.PAYMENT_LIST))
             return false;
-          if (item.title === 'Reminders' && !hasPermission(PermissionsType.REMINDER_LIST))
+          if (item.title === `Reminders` && !hasPermission(PermissionsType.REMINDER_LIST))
             return false;
-          if (item.title === 'Tickets' && !hasPermission(PermissionsType.TICKET_LIST)) return false;
-          if (item.title === 'Users' && !hasPermission(PermissionsType.STAFF_LIST)) return false;
+          if (item.title === `Tickets` && !hasPermission(PermissionsType.TICKET_LIST)) return false;
+          if (item.title === `Users` && !hasPermission(PermissionsType.STAFF_LIST)) return false;
           if (
-            item.title === 'Reports' &&
+            item.title === `Reports` &&
             !hasPermissions([
               PermissionsType.PLAN_REPORT,
               PermissionsType.DAILY_REPORT,
@@ -47,7 +51,7 @@ const useNavData = (navData, permissions, role) => {
           )
             return false;
           if (
-            item.title === 'Settings' &&
+            item.title === `Settings` &&
             !hasPermissions([
               PermissionsType.ACCOUNT_SETTINGS,
               PermissionsType.MASTER_SETTINGS,
@@ -60,8 +64,14 @@ const useNavData = (navData, permissions, role) => {
           if (item.children) {
             item.children = item.children.filter((childItem) => {
               if (
-                childItem.title === 'Products List' &&
+                childItem.title === `Products List` &&
                 !hasPermission(PermissionsType.LIST_PRODUCT)
+              )
+                return false;
+
+              if (
+                childItem.title === `Categories List` &&
+                !hasPermission(PermissionsType.CATEGORY_LIST)
               )
                 return false;
               if (
@@ -70,24 +80,24 @@ const useNavData = (navData, permissions, role) => {
               )
                 return false;
               if (
-                childItem.title === 'Product Stock' &&
+                childItem.title === `Product Stock` &&
                 !hasPermission(PermissionsType.PRODUCT_STOCK)
               )
                 return false;
               if (
-                childItem.title === 'Daily Report' &&
+                childItem.title === `Daily Report` &&
                 !hasPermission(PermissionsType.DAILY_REPORT)
               )
                 return false;
               if (
-                childItem.title === 'Order Report' &&
+                childItem.title === `Order Report` &&
                 !hasPermission(PermissionsType.ORDER_REPORT)
               )
                 return false;
-              if (childItem.title === 'Plan Report' && !hasPermission(PermissionsType.PLAN_REPORT))
+              if (childItem.title === `Plan Report` && !hasPermission(PermissionsType.PLAN_REPORT))
                 return false;
               if (
-                childItem.title === 'Stock Report' &&
+                childItem.title === `Stock Report` &&
                 !hasPermission(PermissionsType.STOCK_REPORT)
               )
                 return false;

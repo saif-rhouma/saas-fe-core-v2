@@ -1,0 +1,36 @@
+{
+  "listView": {
+    "breadCrumbsPageRootTitle": "لوحة التحكم",
+    "breadCrumbsParentPageTitle": "العملاء",
+    "breadCrumbsPageTitle": "القائمة",
+    "addNewCustomer": "عميل جديد",
+    "table": {
+      "tableHeader": {
+        "customerName": "اسم العميل",
+        "email": "البريد الإلكتروني",
+        "phoneNumber": "رقم الهاتف",
+        "address": "العنوان"
+      },
+      "tableActions": {
+        "view": "عرض",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "seeMore": "رؤية المزيد"
+      },
+      "tableToolbar": {
+        "searchPlaceholder": "ابحث عن عميل بالاسم، البريد الإلكتروني..."
+      }
+    },
+    "messages": {
+      "toastMessages": {
+        "createSuccess": "تم إنشاء عميل جديد!",
+        "editSuccess": "تم تعديل العميل!",
+        "deleteSuccess": "تم الحذف بنجاح!"
+      },
+      "dialogDelete": {
+        "title": "حذف",
+        "text": "هل أنت متأكد أنك تريد الحذف؟"
+      }
+    }
+  }
+}

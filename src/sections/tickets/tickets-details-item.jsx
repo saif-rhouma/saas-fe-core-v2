@@ -14,8 +14,8 @@ import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
 
-import TicketsCloseDialog from './tickets-close-dialog';
 import TicketUserTable from './ticket-user-table';
+import TicketsCloseDialog from './tickets-close-dialog';
 // ----------------------------------------------------------------------
 
 export function TicketDetailsItems({ ticket }) {

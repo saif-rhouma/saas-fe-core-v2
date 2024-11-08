@@ -124,6 +124,7 @@ export function AuthProvider({ children }) {
   //   );
   // }
   // return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;
+
   return (
     <PermissionContext.Provider value={memoizedPermissionsValue}>
       <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>

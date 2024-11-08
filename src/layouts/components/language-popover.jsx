@@ -9,21 +9,29 @@ import { useTranslate } from 'src/locales';
 
 import { varHover } from 'src/components/animate';
 import { FlagIcon } from 'src/components/iconify';
+import { useSettingsContext } from 'src/components/settings';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
 export function LanguagePopover({ data = [], sx, ...other }) {
   const popover = usePopover();
+  const settings = useSettingsContext();
 
   const { onChangeLang, currentLang } = useTranslate();
 
   const handleChangeLang = useCallback(
     (newLang) => {
       onChangeLang(newLang);
+
+      if (newLang === 'ar') {
+        settings.onUpdateField('direction', 'rtl');
+      } else if (settings.direction === 'rtl') {
+        settings.onUpdateField('direction', 'ltr');
+      }
       popover.onClose();
     },
-    [onChangeLang, popover]
+    [onChangeLang, popover, settings]
   );
 
   return (

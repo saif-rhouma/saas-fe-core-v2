@@ -136,20 +136,6 @@ const RemindersListView = ({ reminders }) => {
     onError: () => {},
   });
 
-  const { mutate: handleCreateReminder } = useMutation({
-    mutationFn: (payload) => axios.post(endpoints.reminders.create, payload),
-    onSuccess: async () => {
-      toast.success('New Reminder Has Been Created!');
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['reminders'] });
-      dialog.onFalse();
-    },
-    onError: (err) => {
-      console.log(err);
-    },
-  });
-
   const { mutate: handleEditReminder } = useMutation({
     mutationFn: ({ id, payload }) => axios.patch(endpoints.reminders.edit + id, payload),
     onSuccess: async () => {
@@ -260,11 +246,7 @@ const RemindersListView = ({ reminders }) => {
           </PermissionAccessController>
         </Stack>
       </DashboardContent>
-      <ReminderCreateDialog
-        open={dialog.value}
-        onClose={dialog.onFalse}
-        handler={handleCreateReminder}
-      />
+      <ReminderCreateDialog open={dialog.value} onClose={dialog.onFalse} />
       <ReminderEditDialog
         reminder={selectedReminder}
         open={dialogEdit.value}

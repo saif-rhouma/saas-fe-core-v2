@@ -66,8 +66,8 @@ export function JwtSignInView() {
     try {
       await signInWithPassword({ email: data.email, password: data.password });
       await checkUserSession?.();
-
-      router.refresh();
+      // router.refresh();
+      router.replace(paths.dashboard);
     } catch (error) {
       console.error(error);
       setErrorMsg(error instanceof Error ? error.message : error);

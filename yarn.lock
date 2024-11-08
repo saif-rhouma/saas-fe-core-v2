@@ -6090,6 +6090,11 @@ pbf@^3.2.1:
     ieee754 "^1.1.12"
     resolve-protobuf-schema "^2.1.0"
 
+phone@^3.1.53:
+  version "3.1.53"
+  resolved "https://registry.npmjs.org/phone/-/phone-3.1.53.tgz"
+  integrity sha512-+0sMjlxjcm1rjUDRLzXW06vRg/SePwa+MubuSt9WhHoUziGrGHjuC/tfFYfh2oXKU/dcckwCyMUMDAOaVArb6w==
+
 picocolors@^1.0.0, picocolors@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/picocolors/-/picocolors-1.1.0.tgz"

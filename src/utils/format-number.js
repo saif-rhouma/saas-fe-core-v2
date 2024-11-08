@@ -62,7 +62,7 @@ export function fCurrency(inputValue, options) {
     style: 'decimal',
     // currency: locale.currency,
     minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 0,
     ...options,
   }).format(number);
 

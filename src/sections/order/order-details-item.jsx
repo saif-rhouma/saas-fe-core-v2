@@ -6,16 +6,18 @@ import CardHeader from '@mui/material/CardHeader';
 
 import { fDate } from 'src/utils/format-time';
 import { fCurrency } from 'src/utils/format-number';
-import { calculateTax, calculateAfterTax } from 'src/utils/helper';
+import { calculateTax, calculateAfterTax, getApplicationName } from 'src/utils/helper';
 
 import { Label } from 'src/components/label';
-import { Scrollbar } from 'src/components/scrollbar';
+
+import { useAuthContext } from 'src/auth/hooks';
 
 import OrderProductTable from './order-product-table';
 
 // ----------------------------------------------------------------------
 
 export function OrderDetailsItems({ order, discount, customer, totalAmount }) {
+  const { user } = useAuthContext();
   const renderTotal = (
     <Stack spacing={2} alignItems="flex-end" sx={{ p: 3, textAlign: 'right', typography: 'body2' }}>
       <Stack direction="row">
@@ -76,6 +78,17 @@ export function OrderDetailsItems({ order, discount, customer, totalAmount }) {
           .print-hide {
             display: none; /* Hide on screen */
           }
+          html,
+          body {
+            height: initial !important;
+            overflow: initial !important;
+          }
+
+          .scrollableDiv {
+            width: 100%;
+            height: 100% !important;
+            overflow: visible;
+          }
         }
       `}</style>
       <CardHeader className="print-hide" title="Details" />
@@ -121,7 +134,7 @@ export function OrderDetailsItems({ order, discount, customer, totalAmount }) {
             alignItems="center"
             sx={{ typography: 'subtitle2', width: '100%', marginBottom: 1 }}
           >
-            <div>NFCAC</div>
+            <div>{getApplicationName(user)}</div>
           </Stack>
           <Box sx={{ color: 'text.secondary' }}>
             Status :{' '}
@@ -155,26 +168,25 @@ export function OrderDetailsItems({ order, discount, customer, totalAmount }) {
             gap={1}
             sx={{ typography: 'subtitle2', width: '100%', marginBottom: 1 }}
           >
-            <div className="print-hide">Invoice To</div>
-            <div className="print-title">Order To</div>
+            {/* <div className="print-hide">Invoice To</div> */}
+            {/* <div className="print-title">Order To</div> */}
+            <div>Order To</div>
           </Stack>
           <Box sx={{ color: 'text.secondary' }}>{customer?.name}</Box>
           <Box sx={{ color: 'text.secondary' }}>Tel: {customer?.phoneNumber}</Box>
         </Box>
       </Stack>
 
-      <Scrollbar>
-        <Box
-          fullWidth
-          alignItems="center"
-          sx={{
-            p: 3,
-            borderBottom: (theme) => `dashed 2px ${theme.vars.palette.background.neutral}`,
-          }}
-        >
-          <OrderProductTable products={order.productToOrder} isDetail />
-        </Box>
-      </Scrollbar>
+      <Box
+        fullWidth
+        alignItems="center"
+        sx={{
+          p: 3,
+          borderBottom: (theme) => `dashed 2px ${theme.vars.palette.background.neutral}`,
+        }}
+      >
+        <OrderProductTable products={order.productToOrder} isDetail />
+      </Box>
 
       {renderTotal}
       {order?.notes && (

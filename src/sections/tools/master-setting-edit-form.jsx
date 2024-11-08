@@ -35,7 +35,7 @@ export const MasterAccountSchema = zod.object({
   city: zod.string(),
   district: zod.string(),
   zipCode: zod.string(),
-  taxNumber: zod.number(),
+  taxNumber: zod.number().optional(),
   printerPOS: zod.string().min(1, { message: 'Printer POS is required!' }),
 });
 
@@ -54,26 +54,29 @@ const MasterSettingEditForm = ({ applicationAccount, financial }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [applicationAccount]);
 
-  const defaultValues = useMemo(
-    () => ({
+  const defaultValues = useMemo(() => {
+    const defaultVals = {
       name: applicationAccount?.name || '',
       description: applicationAccount?.description || '',
       email: applicationAccount?.email || '',
       phoneNumber: applicationAccount?.phoneNumber || '',
       currencySymbol: applicationAccount?.currencySymbol || '',
       taxPercentage: applicationAccount?.taxPercentage || '',
-      // financialYear: applicationAccount?.financialYear?.id || '',
       country: applicationAccount?.address?.country || '',
       state: applicationAccount?.address?.state || '',
       city: applicationAccount?.address?.city || '',
       district: applicationAccount?.address?.district || '',
       zipCode: applicationAccount?.address?.zipCode || '',
       street: applicationAccount?.address?.street || '',
-      // taxNumber: applicationAccount?.taxNumber || 0,
       printerPOS: applicationAccount?.printerPOS || '',
-    }),
-    [applicationAccount]
-  );
+    };
+
+    if (applicationAccount?.taxNumber == null) {
+      return defaultVals;
+    }
+    defaultVals.taxNumber = parseInt(applicationAccount?.taxNumber, 10);
+    return defaultVals;
+  }, [applicationAccount]);
 
   const methods = useForm({
     resolver: zodResolver(MasterAccountSchema),

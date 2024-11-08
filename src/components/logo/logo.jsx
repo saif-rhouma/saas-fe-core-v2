@@ -7,6 +7,8 @@ import { useTheme } from '@mui/material/styles';
 
 import { RouterLink } from 'src/routes/components';
 
+import { getApplicationName } from 'src/utils/helper';
+
 import { CONFIG } from 'src/config-global';
 
 import { useAuthContext } from 'src/auth/hooks';
@@ -16,7 +18,20 @@ import { logoClasses } from './classes';
 // ----------------------------------------------------------------------
 
 export const Logo = forwardRef(
-  ({ width = 40, height = 40, disableLink = false, className, href = '/', sx, ...other }, ref) => {
+  (
+    {
+      width = 40,
+      height = 40,
+      disableLink = false,
+      className,
+      href = '/',
+      displayName = true,
+      rounded = false,
+      sx,
+      ...other
+    },
+    ref
+  ) => {
     const theme = useTheme();
 
     const [textWidth, setTextWidth] = useState(80);
@@ -34,14 +49,14 @@ export const Logo = forwardRef(
 
     const { user } = useAuthContext();
 
-    const getApplicationName = (userInput) => {
-      let { name } = userInput.userOwnedApps;
-      if (user?.roles?.includes('STAFF')) {
-        // eslint-disable-next-line prefer-destructuring
-        name = userInput.applications.name;
-      }
-      return name;
-    };
+    // const getApplicationName = (user) => {
+    //   let { name } = user.userOwnedApps;
+    //   if (user?.roles?.includes('STAFF')) {
+    //     // eslint-disable-next-line prefer-destructuring
+    //     name = user.applications.name;
+    //   }
+    //   return name;
+    // };
 
     const getApplicationLogo = (userInput) => {
       let { appLogo } = userInput.userOwnedApps;
@@ -152,13 +167,14 @@ export const Logo = forwardRef(
                 src={`${CONFIG.site.serverFileHost}${getApplicationLogo(user)}`}
                 width={width}
                 height={height}
+                sx={rounded && { borderRadius: '50%' }}
               />
             ) : (
               logo
             )}
           </Box>
         </NoSsr>
-        {user && (
+        {user && displayName && (
           <span
             ref={textRef}
             style={{

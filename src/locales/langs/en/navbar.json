@@ -8,5 +8,32 @@
     "title": "Blog",
     "caption": "Custom keyboard shortcuts."
   },
-  "subheader": "Sub header"
+  "subheader": "Sub header",
+  "dashboard": {
+    "root": "Dashboard",
+    "quotations": "Quotations",
+    "orders": "Orders",
+    "products": {
+      "root": "Products",
+      "productsList": "Products List",
+      "categoriesList": "Categories List",
+      "productStock": "Product Stock"
+    },
+    "ordersStatus": "Orders Status",
+    "plans": "Plans",
+    "plansStatus": "Plans Status",
+    "customers": "Customers",
+    "payments": "Payments",
+    "reminders": "Reminders",
+    "tickets": "Tickets",
+    "users": "Users",
+    "reports": {
+      "root": "Reports",
+      "dailyReports": "Daily Report",
+      "orderReports": "Order Report",
+      "planReports": "Plan Report",
+      "stockReports": "Stock Report"
+    },
+    "settings": { "root": "Settings" }
+  }
 }

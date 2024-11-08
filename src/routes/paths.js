@@ -94,6 +94,7 @@ export const paths = {
   // DASHBOARD
   dashboard: {
     root: ROOTS.DASHBOARD,
+    topProducts: `${ROOTS.DASHBOARD}/top-products`,
     mail: `${ROOTS.DASHBOARD}/mail`,
     chat: `${ROOTS.DASHBOARD}/chat`,
     blank: `${ROOTS.DASHBOARD}/blank`,
@@ -121,6 +122,12 @@ export const paths = {
       demo: {
         edit: `${ROOTS.DASHBOARD}/user/${MOCK_ID}/edit`,
       },
+    },
+    quotation: {
+      root: `${ROOTS.DASHBOARD}/quotation`,
+      new: `${ROOTS.DASHBOARD}/quotation/new`,
+      details: (id) => `${ROOTS.DASHBOARD}/quotation/${id}`,
+      edit: (id) => `${ROOTS.DASHBOARD}/quotation/${id}/edit`,
     },
     order: {
       root: `${ROOTS.DASHBOARD}/order`,

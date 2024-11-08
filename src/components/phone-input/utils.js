@@ -1,7 +1,9 @@
+import { phone } from 'phone';
 import { parsePhoneNumber } from 'react-phone-number-input';
 
 import { countries } from 'src/assets/data/countries';
 
+import { useAuthContext } from 'src/auth/hooks';
 // ----------------------------------------------------------------------
 
 export function getCountryCode(inputValue, countryCode) {
@@ -13,7 +15,20 @@ export function getCountryCode(inputValue, countryCode) {
     }
   }
 
-  return countryCode ?? 'US';
+  if (countryCode) {
+    return countryCode;
+  }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { user } = useAuthContext();
+
+  const phoneDetail = phone(user?.phoneNumber);
+
+  if (phoneDetail.isValid) {
+    return phoneDetail.countryIso2;
+  }
+
+  return 'US';
 }
 
 // ----------------------------------------------------------------------

@@ -1,0 +1,178 @@
+{
+  "listView": {
+    "breadCrumbsPageRootTitle": "Dashboard",
+    "breadCrumbsParentPageTitle": "Quotations",
+    "breadCrumbsPageTitle": "List",
+    "addNewQuotation": "New Quotation",
+    "table": {
+      "tableHeader": {
+        "details": "Details",
+        "date": "Date",
+        "items": "Items",
+        "price": "Price",
+        "createdBy": "Created By",
+        "status": "Status"
+      },
+      "tableActions": {
+        "view": "View",
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "seeMore": "See More"
+      },
+      "tableToolbar": {
+        "searchPlaceholder": "Search customer by name, email...",
+        "selectMenu": {
+          "allQuotations": "All Quotations",
+          "draft": "Draft",
+          "processing": "Processing",
+          "canceled": "Canceled",
+          "confirmed": "Confirmed"
+        }
+      }
+    },
+    "quotationPreview": {
+      "quotationCustomerLabel": "Quotation for Customer:",
+      "details": {
+        "tabTitle": "Details",
+        "quotationRefLabel": "Quotation Ref:",
+        "quotationDateLabel": "Quotation Date:",
+        "StatusLabel": "Status:",
+        "table": {
+          "tableHeader": {
+            "productName": "Product Name",
+            "rate": "Rate",
+            "quantity": "Quantity",
+            "total": "Total"
+          },
+          "tableToolbar": {
+            "searchPlaceholder": "Search customer by name, email..."
+          }
+        },
+        "extra": {
+          "subTotal": "Subtotal",
+          "discount": "Discount",
+          "tax": "Tax",
+          "grossTotal": "Gross Total"
+        }
+      },
+      "tickets": {
+        "tabTitle": "Tickets",
+        "newTicketButton": "New Ticket",
+        "table": {
+          "tableHeader": {
+            "topic": "Topic",
+            "date": "Date",
+            "status": "Status",
+            "priority": "Priority"
+          },
+          "tableToolbar": {
+            "searchPlaceholder": "Search customer by name, email...",
+            "selectMenu": {
+              "allTickets": "All Tickets",
+              "openTickets": "Open Tickets",
+              "closeTickets": "Close Tickets"
+            }
+          }
+        },
+        "extra": {
+          "subTotal": "Subtotal",
+          "discount": "Discount",
+          "tax": "Tax",
+          "grossTotal": "Gross Total"
+        }
+      },
+      "reminders": {
+        "tabTitle": "Reminders",
+        "newReminderButton": "New Reminder",
+        "table": {
+          "tableHeader": {
+            "title": "Title",
+            "date": "Date",
+            "status": "Status"
+          },
+          "tableToolbar": {
+            "searchPlaceholder": "Search customer by name, email..."
+          }
+        },
+        "extra": {
+          "subTotal": "Subtotal",
+          "discount": "Discount",
+          "tax": "Tax",
+          "grossTotal": "Gross Total"
+        }
+      }
+    },
+    "messages": {
+      "dialogCancel": {
+        "title": "Cancel Quotation",
+        "text": "Are you sure want to cancel this quotation?",
+        "confirmButton": "Confirm Canceling",
+        "cancelButton": "Cancel"
+      }
+    }
+  },
+  "createView": {
+    "pageTitle": "Create a new quotation",
+    "breadCrumbsPageRootTitle": "Dashboard",
+    "breadCrumbsParentPageTitle": "Quotations",
+    "breadCrumbsPageTitle": "Add Quotation",
+    "productsList": {
+      "searchPlaceholder": "Search product..."
+    },
+    "createForm": {
+      "buttons": {
+        "addCustomer": "",
+        "saveAndContinue": "",
+        "clearAll": ""
+      },
+      "fields": {
+        "title": {
+          "title": "",
+          "placeholder": ""
+        },
+        "date": {
+          "title": "",
+          "placeholder": ""
+        }
+      },
+      "table": {
+        "tableHeader": {
+          "productName": "Product Name",
+          "rate": "Rate",
+          "quantity": "Quantity",
+          "total": "Total"
+        }
+      },
+      "extra": {
+        "subTotal": "Subtotal",
+        "discount": "Discount",
+        "tax": "Tax",
+        "grossTotal": "Gross Total"
+      }
+    },
+
+    "messages": {
+      "toastMessages": {
+        "createSuccess": "New Customer Has Been Created!",
+        "editSuccess": "Customer Has Been Modified!",
+        "deleteSuccess": "Delete success!"
+      },
+      "dialogWrong": {
+        "title": "Something went wrong. Product(s) are required!",
+        "text": "You need to add at least one product to this quotation. Please select a product from the list on the right.",
+        "okayButton": "Okay"
+      }
+    }
+  },
+  "editView": {
+    "pageTitle": "Edit Quotation:",
+    "breadCrumbsPageRootTitle": "Dashboard",
+    "breadCrumbsParentPageTitle": "Quotations",
+    "breadCrumbsPageTitle": "Edit Quotation"
+  },
+  "detailView": {
+    "breadCrumbsPageRootTitle": "Dashboard",
+    "breadCrumbsParentPageTitle": "Quotations",
+    "breadCrumbsPageTitle": "Quotation Details"
+  }
+}

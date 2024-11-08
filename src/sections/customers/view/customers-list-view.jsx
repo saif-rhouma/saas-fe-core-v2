@@ -18,6 +18,7 @@ import axios, { endpoints } from 'src/utils/axios';
 import { PermissionsType } from 'src/utils/constant';
 import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 
+import { useTranslate } from 'src/locales';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import { toast } from 'src/components/snackbar';
@@ -45,23 +46,12 @@ import { CustomersTableFiltersResult } from '../customers-table-filters-result';
 
 // ----------------------------------------------------------------------
 
-const TABLE_HEAD = [
-  { id: 'customerId', label: '#', width: 88 },
-  { id: 'name', label: 'Customer Name', width: 220 },
-  { id: 'email', label: 'Email', width: 220 },
-  {
-    id: 'phoneNumber',
-    label: 'Phone Number',
-    width: 120,
-  },
-  { id: 'address', label: 'Address', width: 120 },
-  { id: '', width: 88 },
-];
-
 // ----------------------------------------------------------------------
 
 const CustomersListView = ({ customers }) => {
   const table = useTable({ defaultOrderBy: 'id' });
+
+  const { t } = useTranslate('customer');
 
   const dialog = useBoolean();
   const dialogEdit = useBoolean();
@@ -121,7 +111,7 @@ const CustomersListView = ({ customers }) => {
   const { mutate: handleCreateCustomer } = useMutation({
     mutationFn: (payload) => axios.post(endpoints.customers.create, payload),
     onSuccess: async () => {
-      toast.success('New Customer Has Been Created!');
+      toast.success(`${t('listView.messages.toastMessages.createSuccess')}`);
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({ queryKey: ['customers'] });
@@ -135,7 +125,7 @@ const CustomersListView = ({ customers }) => {
   const { mutate: handleEditCustomer } = useMutation({
     mutationFn: ({ id, payload }) => axios.patch(endpoints.customers.edit + id, payload),
     onSuccess: async () => {
-      toast.success('Customer Has Been Modified!');
+      toast.success(`${t('listView.messages.toastMessages.editSuccess')}`);
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({ queryKey: ['customers'] });
@@ -152,7 +142,7 @@ const CustomersListView = ({ customers }) => {
       // eslint-disable-next-line no-undef
       const deleteRow = tableData.filter((row) => row.id !== id);
 
-      toast.success('Delete success!');
+      toast.success(`${t('listView.messages.toastMessages.deleteSuccess')}`);
 
       setTableData(deleteRow);
 
@@ -166,14 +156,30 @@ const CustomersListView = ({ customers }) => {
     onError: () => {},
   });
 
+  const TABLE_HEAD = [
+    { id: 'customerId', label: '#', width: 88 },
+    { id: 'name', label: `${t('listView.table.tableHeader.customerName')}`, width: 220 },
+    { id: 'email', label: `${t('listView.table.tableHeader.email')}`, width: 220 },
+    {
+      id: 'phoneNumber',
+      label: `${t('listView.table.tableHeader.phoneNumber')}`,
+      width: 120,
+    },
+    { id: 'address', label: `${t('listView.table.tableHeader.address')}`, width: 120 },
+    { id: '', width: 88 },
+  ];
+
   return (
     <>
       <DashboardContent maxWidth="xl">
         <Stack spacing={3}>
           <CustomBreadcrumbs
             links={[
-              { name: 'Dashboard', href: paths.dashboard.root },
-              { name: 'Customers', href: paths.dashboard.customers.root },
+              { name: `${t('listView.breadCrumbsPageRootTitle')}`, href: paths.dashboard.root },
+              {
+                name: `${t('listView.breadCrumbsParentPageTitle')}`,
+                href: paths.dashboard.customers.root,
+              },
             ]}
             action={
               <PermissionAccessController permission={PermissionsType.ADD_CUSTOMER}>
@@ -182,7 +188,7 @@ const CustomersListView = ({ customers }) => {
                   variant="contained"
                   startIcon={<Iconify icon="mingcute:add-line" />}
                 >
-                  Add New Customer
+                  {`${t('listView.addNewCustomer')}`}
                 </Button>
               </PermissionAccessController>
             }
@@ -296,7 +302,7 @@ function applyFilter({ inputData, comparator, filters, dateError }) {
         order.id.toString().toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
         order.name.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
         order.email.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        order.phoneNumber.toString().toLowerCase().indexOf(name.toLowerCase()) !== -1
+        order.phoneNumber?.toString().toLowerCase().indexOf(name.toLowerCase()) !== -1
     );
   }
 

@@ -1,17 +1,37 @@
 import Grid from '@mui/material/Unstable_Grid2';
-import { Box, Card, Stack, CardHeader } from '@mui/material';
+import { Box, Tab, Card, Tabs, Stack, CardHeader } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 
+import { useTabs } from 'src/hooks/use-tabs';
+
+import { CONFIG } from 'src/config-global';
+import { varAlpha } from 'src/theme/styles';
 import { DashboardContent } from 'src/layouts/dashboard';
 
+import { SvgColor } from 'src/components/svg-color';
 import { Scrollbar } from 'src/components/scrollbar';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
+import CustomerOrdersTable from '../customer-orders-table';
 import CustomerProductsTable from '../customer-products-table';
 
 const CustomerDetailsView = ({ payload }) => {
+  const TABS = [
+    {
+      value: 'products',
+      icon: <SvgColor src={`${CONFIG.site.basePath}/assets/icons/navbar/ic-product.svg`} />,
+      label: 'Products',
+    },
+    {
+      value: 'orders',
+      icon: <SvgColor src={`${CONFIG.site.basePath}/assets/icons/navbar/ic-order.svg`} />,
+      label: 'Orders',
+    },
+  ];
+
   const { customer, products } = payload;
+  const basicTabs = useTabs('products');
 
   return (
     <DashboardContent>
@@ -61,19 +81,73 @@ const CustomerDetailsView = ({ payload }) => {
                   )}
                 </Box>
               </Stack>
-
-              <Scrollbar>
+              <Box sx={{ p: 2 }}>
                 <Box
-                  fullWidth
-                  alignItems="center"
                   sx={{
-                    p: 3,
-                    borderBottom: (theme) => `dashed 2px ${theme.vars.palette.background.neutral}`,
+                    borderRadius: 1,
+                    overflow: 'hidden',
+                    border: (theme) => `solid 1px ${theme.vars.palette.divider}`,
                   }}
                 >
-                  <CustomerProductsTable products={products} />
+                  <Box
+                    sx={{
+                      // eslint-disable-next-line no-shadow
+                      boxShadow: (theme) =>
+                        `inset 0 -2px 0 0 ${varAlpha(theme.vars.palette.grey['500Channel'], 0.08)}`,
+                    }}
+                  >
+                    <Tabs
+                      value={basicTabs.value}
+                      onChange={basicTabs.onChange}
+                      sx={{
+                        pr: 3,
+                        pl: 3,
+                      }}
+                    >
+                      {TABS.map((tab) => (
+                        <Tab key={tab.value} icon={tab.icon} value={tab.value} label={tab.label} />
+                      ))}
+                    </Tabs>
+                  </Box>
+
+                  {basicTabs.value === 'products' && (
+                    <Scrollbar>
+                      <Box
+                        fullWidth
+                        alignItems="center"
+                        sx={{
+                          pr: 3,
+                          pl: 3,
+                          pb: 3,
+                          pt: 1,
+                          borderBottom: (theme) =>
+                            `dashed 2px ${theme.vars.palette.background.neutral}`,
+                        }}
+                      >
+                        <CustomerProductsTable products={products} defaultRowsPerPage={15} />
+                      </Box>
+                    </Scrollbar>
+                  )}
+                  {basicTabs.value === 'orders' && (
+                    <Scrollbar>
+                      <Box
+                        fullWidth
+                        alignItems="center"
+                        sx={{
+                          pr: 3,
+                          pl: 3,
+                          pb: 3,
+                          pt: 1,
+                          borderBottom: (theme) =>
+                            `dashed 2px ${theme.vars.palette.background.neutral}`,
+                        }}
+                      >
+                        <CustomerOrdersTable orders={customer.orders} defaultRowsPerPage={15} />
+                      </Box>
+                    </Scrollbar>
+                  )}
                 </Box>
-              </Scrollbar>
+              </Box>
             </Card>
           </Stack>
         </Grid>

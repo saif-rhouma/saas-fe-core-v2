@@ -10,6 +10,7 @@ import alarmFile from 'src//assets/sounds/alarm.mp3';
 import notifyFile from 'src//assets/sounds/notif.mp3';
 import { useGlobalContext } from 'src/context/context';
 
+import { Logo } from 'src/components/logo';
 import { toast } from 'src/components/snackbar';
 
 import { useAuthContext } from 'src/auth/hooks';
@@ -158,7 +159,9 @@ export function HeaderBase({
                 }}
               />
             )}
-
+            <Box>
+              <Logo rounded displayName={false} width={30} height={30} />
+            </Box>
             {/* -- Divider -- */}
             <StyledDivider data-slot="divider" />
             <span>{activePage}</span>
